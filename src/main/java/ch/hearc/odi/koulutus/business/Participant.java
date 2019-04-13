@@ -27,6 +27,7 @@ public class Participant {
     }
 
     public Participant(Integer id, String firstName, String lastName, String birthdate) {
+        this();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
