@@ -1,14 +1,30 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
+@Entity
+@Table(name = "Participant")
 public class Participant {
 
     private Integer id;
     private String firstName;
     private String lastName;
     private String birthdate;
-    private ArrayList<Course> courses;
+    private List<Course> courses;
+
+    public Participant() {
+        courses = new ArrayList<>();
+    }
 
     public Participant(Integer id, String firstName, String lastName, String birthdate) {
         this.id = id;
@@ -17,6 +33,9 @@ public class Participant {
         this.birthdate = birthdate;
     }
 
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getId() {
         return id;
     }
@@ -49,11 +68,14 @@ public class Participant {
         this.birthdate = birthdate;
     }
 
-    public ArrayList<Course> getCourses() {
+    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "courses")
+    @OrderColumn(name = "order_courses")
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 }

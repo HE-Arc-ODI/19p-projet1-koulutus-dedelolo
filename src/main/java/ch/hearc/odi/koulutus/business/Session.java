@@ -1,5 +1,13 @@
 package ch.hearc.odi.koulutus.business;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "Session")
 public class Session {
 
     private Integer id;
@@ -7,6 +15,9 @@ public class Session {
     private String endDateTime;
     private Number price;
     private String room;
+
+    public Session() {
+    }
 
     public Session(Integer id, String startDateTime, String endDateTime, Number price, String room) {
         this.id = id;
@@ -16,6 +27,9 @@ public class Session {
         this.room = room;
     }
 
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getId() {
         return id;
     }

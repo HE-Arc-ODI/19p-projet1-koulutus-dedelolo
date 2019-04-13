@@ -1,5 +1,15 @@
 package ch.hearc.odi.koulutus.business;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "Program")
+@XmlRootElement(name = "Program")
 public class Program {
 
     private Integer id;
@@ -8,6 +18,9 @@ public class Program {
     private String field;
     private Number price;
 
+    public Program(){
+
+    }
 
     public Program(Integer id, String name, String richDescription, String field, Number price) {
         this.id = id;
@@ -17,6 +30,9 @@ public class Program {
         this.price = price;
     }
 
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getId() {
         return id;
     }

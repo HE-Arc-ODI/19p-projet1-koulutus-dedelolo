@@ -1,17 +1,36 @@
 package ch.hearc.odi.koulutus.business;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
-public class Course {
+@Entity
+@Table(name = "Course")
+public class Course{
 
     private Integer id;
     private Integer quarter;
     private Integer year;
     private Integer maxNumberOfParticipants;
     private String status;
-    private ArrayList<Session> sessions;
+    private List<Session> sessions;
+
+    public Course() {
+        sessions = new ArrayList<>();
+    }
 
     public Course(Integer id, Integer quarter, Integer year, Integer maxNumberOfParticipants, String status) {
+        this();
         this.id = id;
         this.quarter = quarter;
         this.year = year;
@@ -19,6 +38,9 @@ public class Course {
         this.status = status;
     }
 
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getId() {
         return id;
     }
@@ -59,11 +81,14 @@ public class Course {
         this.status = status;
     }
 
-    public ArrayList<Session> getSessions() {
+    @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sessions")
+    @OrderColumn(name = "order_sessions")
+    public List<Session> getSessions() {
         return sessions;
     }
 
-    public void setSessions(ArrayList<Session> sessions) {
+    public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
     }
 }
