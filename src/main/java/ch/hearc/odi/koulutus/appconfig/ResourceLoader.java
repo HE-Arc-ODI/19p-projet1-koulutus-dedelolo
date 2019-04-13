@@ -20,7 +20,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class ResourceLoader extends ResourceConfig {
 
   public ResourceLoader() {
-    //  TODO: register resources
     register(ServiceFeature.class);
     register(CourseResource.class);
     register(ParticipantResource.class);
