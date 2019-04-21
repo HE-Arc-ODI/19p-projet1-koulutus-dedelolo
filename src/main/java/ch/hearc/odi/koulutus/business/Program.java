@@ -3,6 +3,7 @@ package ch.hearc.odi.koulutus.business;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Program {
 
     private Long id;
     private String name;
+    @Column(length = 1000)//todo Length pas pris en compte selon mes tests 21.04.2019
     private String richDescription;
     private String field;
     private BigDecimal price;
@@ -28,6 +30,14 @@ public class Program {
 
     public Program(){
         courses = new ArrayList<>();
+    }
+
+    public Program(String name, String richDescription, String field, BigDecimal price) {
+        this();
+        this.name = name;
+        this.richDescription = richDescription;
+        this.field = field;
+        this.price = price;
     }
 
     public Program(Long id, String name, String richDescription, String field, BigDecimal price) {
