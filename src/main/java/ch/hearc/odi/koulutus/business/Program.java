@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -18,18 +19,18 @@ import org.hibernate.annotations.GenericGenerator;
 @XmlRootElement(name = "Program")
 public class Program {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String richDescription;
     private String field;
-    private Number price;
+    private BigDecimal price;
     private List<Course> courses;
 
     public Program(){
         courses = new ArrayList<>();
     }
 
-    public Program(Integer id, String name, String richDescription, String field, Number price) {
+    public Program(Long id, String name, String richDescription, String field, BigDecimal price) {
         this();
         this.id = id;
         this.name = name;
@@ -41,11 +42,11 @@ public class Program {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,11 +74,11 @@ public class Program {
         this.field = field;
     }
 
-    public Number getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Number price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

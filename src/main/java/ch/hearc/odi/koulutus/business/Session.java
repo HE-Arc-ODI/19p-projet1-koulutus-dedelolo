@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,16 +11,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Session")
 public class Session {
 
-    private Integer id;
-    private String startDateTime;
-    private String endDateTime;
-    private Number price;
+    private Long id;
+    private Date startDateTime;
+    private Date endDateTime;
+    private Double price;
     private String room;
 
     public Session() {
     }
 
-    public Session(Integer id, String startDateTime, String endDateTime, Number price, String room) {
+    public Session(Long id, Date startDateTime, Date endDateTime, Double price, String room) {
         this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -30,35 +31,35 @@ public class Session {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(String startDateTime) {
+    public void setStartDateTime(Date startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public String getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(String endDateTime) {
+    public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
     }
 
-    public Number getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Number price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

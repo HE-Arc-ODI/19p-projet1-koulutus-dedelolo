@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,17 +17,17 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Participant")
 public class Participant {
 
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
-    private String birthdate;
+    private Date birthdate;
     private List<Course> courses;
 
     public Participant() {
         courses = new ArrayList<>();
     }
 
-    public Participant(Integer id, String firstName, String lastName, String birthdate) {
+    public Participant(Long id, String firstName, String lastName, Date birthdate) {
         this();
         this.id = id;
         this.firstName = firstName;
@@ -37,11 +38,11 @@ public class Participant {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,11 +62,11 @@ public class Participant {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

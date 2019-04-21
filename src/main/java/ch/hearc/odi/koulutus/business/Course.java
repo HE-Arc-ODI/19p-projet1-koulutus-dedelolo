@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +13,64 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import org.glassfish.jersey.message.internal.Statuses;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Course")
 public class Course{
 
-    private Integer id;
-    private Integer quarter;
+    public enum QuarterEnum {
+        NUMBER_1(1),
+
+        NUMBER_2(2),
+
+        NUMBER_3(3),
+
+        NUMBER_4(4);
+        private Integer value;
+
+        QuarterEnum(Integer value) {
+            this.value = value;
+        }
+        @Override
+        @JsonValue
+        public String toString() {
+            return String.valueOf(value);
+        }
+    }
+
+    public enum StatusEnum {
+        OPEN("OPEN"),
+
+        CONFIRMED("CONFIRMED"),
+
+        CANCELLED("CANCELLED");
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return String.valueOf(value);
+        }
+    }
+
+    private Long id;
+    private QuarterEnum quarter;
     private Integer year;
     private Integer maxNumberOfParticipants;
-    private String status;
+    private StatusEnum status;
     private List<Session> sessions;
 
     public Course() {
         sessions = new ArrayList<>();
     }
 
-    public Course(Integer id, Integer quarter, Integer year, Integer maxNumberOfParticipants, String status) {
+    public Course(Long id, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants, StatusEnum status) {
         this();
         this.id = id;
         this.quarter = quarter;
@@ -41,19 +82,19 @@ public class Course{
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getQuarter() {
+    public QuarterEnum getQuarter() {
         return quarter;
     }
 
-    public void setQuarter(Integer quarter) {
+    public void setQuarter(QuarterEnum quarter) {
         this.quarter = quarter;
     }
 
@@ -73,11 +114,11 @@ public class Course{
         this.maxNumberOfParticipants = maxNumberOfParticipants;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
