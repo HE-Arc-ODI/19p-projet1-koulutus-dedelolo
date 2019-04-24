@@ -85,6 +85,26 @@ public class PersistenceService {
   }
 
   /**
+   * Delete a program
+   *
+   * @return void
+   */
+  public void deleteProgram(Long programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.remove(program);
+    if (program == null) {
+      logger.warn("Program " + programId + " was not found for deletion");
+      throw new ProgramException("Program " + programId + " was not found for deletion");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Program " + programId + " was deleted");
+  }
+
+  /**
    * Create a new Participant and persist
    *
    * @return the Participant object created
