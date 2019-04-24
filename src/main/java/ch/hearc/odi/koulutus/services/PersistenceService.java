@@ -8,6 +8,7 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +60,27 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     logger.info("Create and persist program. Name : "+name);
+    return program;
+  }
+
+  /**
+   * Return program by ID
+   *
+   * @return a program
+   */
+  public Program getProgramById(Long programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+
+    if (program == null) {
+      logger.warn("Program " + programId + " was not found");
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Program " + programId + " was found");
     return program;
   }
 
