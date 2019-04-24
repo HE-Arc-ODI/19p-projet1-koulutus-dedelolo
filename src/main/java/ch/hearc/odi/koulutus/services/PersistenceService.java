@@ -28,7 +28,6 @@ public class PersistenceService {
     //  an EntityManagerFactory is set up once for an application
     //  IMPORTANT: the name here matches the name of persistence-unit in persistence.xml
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
-    logger.fatal("TEST");
   }
 
   /**
@@ -41,9 +40,9 @@ public class PersistenceService {
     entityManager.getTransaction().begin();
     List<Program> programs = entityManager.createQuery("from Program", Program.class)
         .getResultList();
-
     entityManager.getTransaction().commit();
     entityManager.close();
+    logger.info("Retrieve list of programs. Total :"+programs.size());
     return (ArrayList<Program>) programs;
   }
 
@@ -59,6 +58,7 @@ public class PersistenceService {
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
+    logger.info("Create and persist program. Name : "+name);
     return program;
   }
 
