@@ -15,16 +15,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
 
+  private static final Logger logger = LogManager.getLogger(PersistenceService.class);
 
   public PersistenceService() {
     //  an EntityManagerFactory is set up once for an application
     //  IMPORTANT: the name here matches the name of persistence-unit in persistence.xml
     entityManagerFactory = Persistence.createEntityManagerFactory("ch.hearc.odi.koulutus.jpa");
+    logger.fatal("TEST");
   }
 
   /**
@@ -40,7 +44,6 @@ public class PersistenceService {
 
     entityManager.getTransaction().commit();
     entityManager.close();
-
     return (ArrayList<Program>) programs;
   }
 
