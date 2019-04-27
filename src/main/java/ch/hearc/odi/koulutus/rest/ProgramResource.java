@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.rest;
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
@@ -80,4 +81,15 @@ public class ProgramResource {
       return Response.status(Status.NOT_FOUND).build();
     }
   }
+
+  @GET
+  @Path("{programId}/course")
+  public List<Course> programGetAllCourse(@PathParam("programId") Long programid){
+    try{
+      return persistenceService.getProgramAllCourse(programid);
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
 }

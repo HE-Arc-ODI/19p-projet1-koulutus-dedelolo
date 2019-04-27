@@ -72,18 +72,7 @@ public class PersistenceService {
    * @return a program
    */
   public Program getProgramById(Long programId) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = entityManager.find(Program.class, programId);
-
-    if (program == null) {
-      logger.warn("Program " + programId + " was not found");
-      throw new ProgramException("Program " + programId + " was not found");
-    }
-
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    logger.info("Program " + programId + " was found");
+    Program program = getProgramByID(programId);
     return program;
   }
 
@@ -127,6 +116,33 @@ public class PersistenceService {
 
     logger.info("Program " + programid + " was updated");
     return programUpdated;
+  }
+
+  /**
+   * Return program by ID
+   *
+   * @return a program
+   */
+  public List<Course> getProgramAllCourse(Long programId) throws ProgramException {
+    Program program = getProgramByID(programId);
+
+    return program.getCourses();
+  }
+
+  private Program getProgramByID(Long programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+
+    if (program == null) {
+      logger.warn("Program " + programId + " was not found");
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Program " + programId + " was found");
+    return program;
   }
 
   /**
