@@ -62,7 +62,7 @@ public class ProgramResource {
 
   @GET
   @Path("{programId}/course/{courseId}/session")
-  public ArrayList<Session> programCourseSessionGet(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
+  public List<Session> programCourseSessionGet(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
     try {
       return persistenceService.getSessionsForGivenCourseAndProgram(programid, courseid);
     }catch(Exception e){
