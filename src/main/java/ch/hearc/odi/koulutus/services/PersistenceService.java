@@ -108,6 +108,28 @@ public class PersistenceService {
   }
 
   /**
+   * Update a program
+   *
+   * @return program
+   */
+  public Program putProgram(Long programid, String name, String richDescription, String field, BigDecimal price) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programid);
+    if (program == null) {
+      logger.warn("Program " + programid + " was not found for update");
+      throw new ProgramException("Program " + programid + " was not found for update");
+    }
+    Program programUpdated = new Program(programid,name,richDescription,field,price);
+    entityManager.merge(programUpdated);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    logger.info("Program " + programid + " was updated");
+    return programUpdated;
+  }
+
+  /**
    * Return all existing participant
    *
    * @return a list
@@ -183,7 +205,7 @@ public class PersistenceService {
   /**
    * Update a participant
    *
-   * @return void
+   * @return participant
    */
   public Participant putParticipant(Long participantId, String firstname, String lastname, Date birthdate) throws ParticipantException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -199,7 +221,7 @@ public class PersistenceService {
     entityManager.close();
 
     logger.info("Participant " + participantId + " was updated");
-    return participant;
+    return participantUpdated;
   }
 
   /**
