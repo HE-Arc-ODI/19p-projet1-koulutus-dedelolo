@@ -132,6 +132,7 @@ public class PersistenceService {
     entityManager.persist(participant);
     entityManager.getTransaction().commit();
     entityManager.close();
+    logger.info("Create and persist participant. Name : "+firstName+" "+lastName);
     return participant;
   }
 
