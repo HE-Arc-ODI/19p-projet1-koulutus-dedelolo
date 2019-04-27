@@ -105,6 +105,22 @@ public class PersistenceService {
   }
 
   /**
+   * Return all existing participant
+   *
+   * @return a list
+   */
+  public ArrayList<Participant> getParticipant() {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
+        .getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of participant. Total :"+participant.size());
+    return (ArrayList<Participant>) participant;
+  }
+
+  /**
    * Create a new Participant and persist
    *
    * @return the Participant object created
