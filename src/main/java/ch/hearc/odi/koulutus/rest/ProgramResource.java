@@ -12,6 +12,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -55,6 +56,16 @@ public class ProgramResource {
     }catch (Exception e){
       e.printStackTrace();
       return Response.status(Status.NOT_FOUND).build();
+    }
+  }
+
+  @PUT
+  @Path("{programId}")
+  public Program programPut(@PathParam("programId") Long programid, Program program){
+    try{
+      return persistenceService.putProgram(programid, program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+    }catch (ProgramException e){
+      throw new NotFoundException("the program does not exist");
     }
   }
 
