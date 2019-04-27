@@ -211,7 +211,7 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     TypedQuery<Course> query = entityManager
-        .createQuery("SELECT c from Participant p JOIN Course c where p.id = :participantid", Course.class);
+        .createQuery("SELECT c from Course c where c.participant.id = :participantid", Course.class);
 
     List<Course> courses = query.setParameter("participantid", participantid).getResultList();
 

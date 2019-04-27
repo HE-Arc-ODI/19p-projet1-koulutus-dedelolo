@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
@@ -65,6 +67,7 @@ public class Course{
     private Integer maxNumberOfParticipants;
     private StatusEnum status;
     private List<Session> sessions;
+    private Participant participant;
 
     public Course() {
         sessions = new ArrayList<>();
@@ -131,5 +134,15 @@ public class Course{
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    @ManyToOne
+    @JsonBackReference
+    public Participant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
     }
 }
