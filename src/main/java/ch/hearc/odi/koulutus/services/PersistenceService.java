@@ -5,6 +5,7 @@
 package ch.hearc.odi.koulutus.services;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -198,6 +200,28 @@ public class PersistenceService {
 
     logger.info("Participant " + participantId + " was updated");
     return participant;
+  }
+
+  /**
+   * Return all existing course for a participant
+   *
+   * @return a list
+   */
+  public ArrayList<Course> getParticipantCourseSummary(Long participantid) throws ParticipantException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Course> query = entityManager
+        .createQuery("SELECT c from Participant p JOIN Course c where p.id = :participantid", Course.class);
+
+    List<Course> courses = query.setParameter("participantid", participantid).getResultList();
+
+    if (courses == null) {
+      throw new ParticipantException("Participant " + participantid + " was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of course for a participant. Total :"+courses.size());
+    return (ArrayList<Course>) courses;
   }
 
   @Override

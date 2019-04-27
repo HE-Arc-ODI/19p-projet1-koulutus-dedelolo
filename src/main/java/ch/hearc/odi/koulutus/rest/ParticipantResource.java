@@ -1,7 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
-import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
@@ -68,4 +68,15 @@ public class ParticipantResource {
       throw new NotFoundException("the participant does not exist");
     }
   }
+
+  @GET
+  @Path("{participantId}/summary")
+  public List<Course> participantCourseSummaryGet(@PathParam("participantId") Long participantid){
+    try{
+      return persistenceService.getParticipantCourseSummary(participantid);
+    }catch (ParticipantException e){
+      throw new NotFoundException("the participant does not exist");
+    }
+  }
+
 }
