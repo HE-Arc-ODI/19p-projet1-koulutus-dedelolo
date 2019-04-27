@@ -119,11 +119,12 @@ public class PersistenceService {
     List<Session> sessions = query.setParameter("programId",programId).setParameter("courseId",courseId).getResultList();
 
     if(sessions == null){
+      logger.warn("Program or course was not found");
       throw new ProgramException("Program or course was not found");
     }
     entityManager.getTransaction().commit();
     entityManager.close();
-
+    logger.info(sessions.size()+" sessions were returned");
     return (ArrayList<Session>) sessions;
   }
 
