@@ -5,9 +5,11 @@
 package ch.hearc.odi.koulutus.services;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -105,6 +108,22 @@ public class PersistenceService {
   }
 
   /**
+   * Return all existing participant
+   *
+   * @return a list
+   */
+  public ArrayList<Participant> getParticipant() {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
+        .getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of participant. Total :"+participant.size());
+    return (ArrayList<Participant>) participant;
+  }
+
+  /**
    * Create a new Participant and persist
    *
    * @return the Participant object created
@@ -116,7 +135,116 @@ public class PersistenceService {
     entityManager.persist(participant);
     entityManager.getTransaction().commit();
     entityManager.close();
+    logger.info("Create and persist participant. Name : "+firstName+" "+lastName);
     return participant;
+  }
+
+  /**
+   * Return participant by ID
+   *
+   * @return a participant
+   */
+  public Participant getParticipantById(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+
+    if (participant == null) {
+      logger.warn("Participant " + participantId + " was not found");
+      throw new ParticipantException("Participant " + participantId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Participant " + participantId + " was found");
+    return participant;
+  }
+
+  /**
+   * Delete a participant
+   *
+   * @return void
+   */
+  public void deleteParticipant(Long participantId) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+    entityManager.remove(participant);
+    if (participant == null) {
+      logger.warn("Participant " + participantId + " was not found for deletion");
+      throw new ParticipantException("Participant " + participantId + " was not found for deletion");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Participant " + participantId + " was deleted");
+  }
+
+  /**
+   * Update a participant
+   *
+   * @return void
+   */
+  public Participant putParticipant(Long participantId, String firstname, String lastname, Date birthdate) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantId);
+    if (participant == null) {
+      logger.warn("Participant " + participantId + " was not found for update");
+      throw new ParticipantException("Participant " + participantId + " was not found for update");
+    }
+    Participant participantUpdated = new Participant(participantId,firstname,lastname,birthdate);
+    entityManager.merge(participantUpdated);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    logger.info("Participant " + participantId + " was updated");
+    return participant;
+  }
+
+  /**
+   * Return all existing course for a participant
+   *
+   * @return a list
+   */
+  public ArrayList<Course> getParticipantCourseSummary(Long participantid) throws ParticipantException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Course> query = entityManager
+        .createQuery("SELECT c from Course c where c.participant.id = :participantid", Course.class);
+
+    List<Course> courses = query.setParameter("participantid", participantid).getResultList();
+
+    if (courses == null) {
+      throw new ParticipantException("Participant " + participantid + " was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of course for a participant. Total :"+courses.size());
+    return (ArrayList<Course>) courses;
+  }
+
+  /**
+   * Register a participant to a course
+   *
+   * @return void
+   */
+  public void registerParticipantToCourse(Long programid, Long courseid, Long participantid) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantid);
+    Course course = entityManager.find(Course.class, courseid);
+    Program program = entityManager.find(Program.class, programid);
+    entityManager.remove(participant);
+    if (participant == null || course == null || program == null) {
+      logger.warn("Participant or course or program not found");
+      throw new ParticipantException("Participant or course or program not found");
+    }
+    participant.addCourse(course);
+    entityManager.merge(participant);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Participant " + participantid + " was registered to course " + courseid);//todo fonction a tester 27.04.2019
   }
 
   @Override

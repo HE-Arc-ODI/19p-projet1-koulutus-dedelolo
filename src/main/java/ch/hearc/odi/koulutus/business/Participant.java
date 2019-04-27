@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Participant {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date birthdate;
     private List<Course> courses;
 
@@ -79,5 +81,9 @@ public class Participant {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public void addCourse(Course course){
+        courses.add(course);
     }
 }

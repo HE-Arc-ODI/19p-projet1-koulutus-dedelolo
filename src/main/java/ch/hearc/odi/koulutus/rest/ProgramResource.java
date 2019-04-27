@@ -57,4 +57,16 @@ public class ProgramResource {
       return Response.status(Status.NOT_FOUND).build();
     }
   }
+
+  @POST
+  @Path("{programId}/course/{courseId}/participant/{participantId}")
+  public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){
+    try{
+      persistenceService.registerParticipantToCourse(programid,courseid,participantid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }
+  }
 }
