@@ -82,4 +82,8 @@ public class Participant {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    public void addCourse(Course course){
+        courses.add(course);
+    }
 }

@@ -224,6 +224,29 @@ public class PersistenceService {
     return (ArrayList<Course>) courses;
   }
 
+  /**
+   * Register a participant to a course
+   *
+   * @return void
+   */
+  public void registerParticipantToCourse(Long programid, Long courseid, Long participantid) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = entityManager.find(Participant.class, participantid);
+    Course course = entityManager.find(Course.class, courseid);
+    Program program = entityManager.find(Program.class, programid);
+    entityManager.remove(participant);
+    if (participant == null || course == null || program == null) {
+      logger.warn("Participant or course or program not found");
+      throw new ParticipantException("Participant or course or program not found");
+    }
+    participant.addCourse(course);
+    entityManager.merge(participant);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Participant " + participantid + " was registered to course " + courseid);//todo fonction a tester 27.04.2019
+  }
+
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
