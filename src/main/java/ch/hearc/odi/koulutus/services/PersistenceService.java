@@ -8,6 +8,7 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -102,6 +104,27 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     logger.info("Program " + programId + " was deleted");
+  }
+
+  /**
+   * Return all sessions for a given course and program
+   *
+   * @return sessions
+   */
+  public ArrayList<Session> getSessionsForGivenCourseAndProgram(Long programId, Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Session> query = entityManager
+        .createQuery("SELECT s.id from Session s JOIN Course c JOIN Program p where p.id = :programId AND c.id = :courseId", Session.class);
+    List<Session> sessions = query.setParameter("programId",programId).setParameter("courseId",courseId).getResultList();
+
+    if(sessions == null){
+      throw new ProgramException("Program or course was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Session>) sessions;
   }
 
   /**

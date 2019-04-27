@@ -1,9 +1,11 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -56,5 +58,16 @@ public class ProgramResource {
       e.printStackTrace();
       return Response.status(Status.NOT_FOUND).build();
     }
+  }
+
+  @GET
+  @Path("{programId}/course/{courseId}/session")
+  public ArrayList<Session> programCourseSessionGet(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
+    try {
+      return persistenceService.getSessionsForGivenCourseAndProgram(programid, courseid);
+    }catch(Exception e){
+      e.printStackTrace();
+      throw new NotFoundException("the program or course does not exist");
+    }//todo fonction a tester lorsque course sera fait 27.04.2019
   }
 }
