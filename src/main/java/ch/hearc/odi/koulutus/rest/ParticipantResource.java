@@ -11,6 +11,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -42,7 +43,7 @@ public class ParticipantResource {
     try{
       return persistenceService.getParticipantById(participantid);
     }catch(ParticipantException e){
-      throw new NotFoundException("the program does not exist");
+      throw new NotFoundException("the participant does not exist");
     }
   }
 
@@ -55,6 +56,16 @@ public class ParticipantResource {
     }catch (Exception e){
       e.printStackTrace();
       return Response.status(Status.NOT_FOUND).build();
+    }
+  }
+
+  @PUT
+  @Path("{participantId}")
+  public Participant participantPut(@PathParam("participantId") Long participantid, Participant participant){
+    try{
+      return persistenceService.putParticipant(participantid, participant.getFirstName(), participant.getLastName(), participant.getBirthdate());
+    }catch (ParticipantException e){
+      throw new NotFoundException("the participant does not exist");
     }
   }
 }
