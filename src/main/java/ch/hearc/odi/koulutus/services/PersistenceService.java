@@ -6,6 +6,8 @@ package ch.hearc.odi.koulutus.services;
 
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Course.QuarterEnum;
+import ch.hearc.odi.koulutus.business.Course.StatusEnum;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
@@ -119,9 +121,9 @@ public class PersistenceService {
   }
 
   /**
-   * Return program by ID
+   * Return list of course for a given program
    *
-   * @return a program
+   * @return list of course
    */
   public List<Course> getProgramAllCourse(Long programId) throws ProgramException {
     Program program = getProgramByID(programId);
@@ -143,6 +145,29 @@ public class PersistenceService {
     entityManager.close();
     logger.info("Program " + programId + " was found");
     return program;
+  }
+
+  /**
+   * Add a new course to an existing program
+   *
+   * @return a course
+   */
+  public Course addNewCourseToExistingProgram(Long programId,Long courseId, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = new Course(courseId, quarter, year, maxNumberOfParticipants, StatusEnum.OPEN);
+    Program program = getProgramById(programId);
+
+    if (program != null) {
+      program.addCourse(course);
+      entityManager.persist(course);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    } else {
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    return course;
   }
 
   /**

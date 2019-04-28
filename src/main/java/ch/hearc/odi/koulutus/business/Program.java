@@ -100,4 +100,8 @@ public class Program {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    public void addCourse(Course course){
+        this.courses.add(course);
+    }
 }

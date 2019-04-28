@@ -92,4 +92,16 @@ public class ProgramResource {
     }
   }
 
+  @POST
+  @Path("{programId}/course")
+  public Course programGetAllCourse(@PathParam("programId") Long programid, Course course) {
+    try {
+      return persistenceService
+          .addNewCourseToExistingProgram(programid, course.getId(), course.getQuarter(),
+              course.getYear(), course.getMaxNumberOfParticipants());
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
 }
