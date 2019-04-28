@@ -1,27 +1,50 @@
 package ch.hearc.odi.koulutus.business;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
+@Entity
+@Table(name = "Participant")
 public class Participant {
 
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
-    private String birthdate;
-    private ArrayList<Course> courses;
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private Date birthdate;
+    private List<Course> courses;
 
-    public Participant(Integer id, String firstName, String lastName, String birthdate) {
+    public Participant() {
+        courses = new ArrayList<>();
+    }
+
+    public Participant(Long id, String firstName, String lastName, Date birthdate) {
+        this();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
     }
 
-    public Integer getId() {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,19 +64,26 @@ public class Participant {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
-    public ArrayList<Course> getCourses() {
+    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "courses")
+    @OrderColumn(name = "order_courses")
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public void addCourse(Course course){
+        courses.add(course);
     }
 }

@@ -1,0 +1,1771 @@
+{
+	"info": {
+		"_postman_id": "714bb45a-ba27-4112-927f-b344205259ad",
+		"name": "Koulutus training programs API",
+		"description": "Koulutus (meaning education in Finnish) is an api to manage training programs.\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "program",
+			"item": [
+				{
+					"name": "{program Id}",
+					"item": [
+						{
+							"name": "course",
+							"item": [
+								{
+									"name": "{course Id}",
+									"item": [
+										{
+											"name": "participant",
+											"item": [
+												{
+													"name": "get participants list for a given course",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/:programId/course/:courseId/participant",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																":programId",
+																"course",
+																":courseId",
+																"participant"
+															],
+															"variable": [
+																{
+																	"key": "programId",
+																	"value": "<integer>",
+																	"description": "id of the program"
+																},
+																{
+																	"key": "courseId",
+																	"value": "<integer>",
+																	"description": "id of the course"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "successful operation",
+															"originalRequest": {
+																"method": "GET",
+																"header": [],
+																"body": {
+																	"mode": "raw",
+																	"raw": ""
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/<integer>/course/<integer>/participant",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		"<integer>",
+																		"course",
+																		"<integer>",
+																		"participant"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "Text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json"
+																}
+															],
+															"cookie": [],
+															"body": "[\n {\n  \"id\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"birthdate\": \"<date>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n },\n {\n  \"id\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"birthdate\": \"<date>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n }\n]"
+														}
+													]
+												},
+												{
+													"name": "Register a participant to a course",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/:programId/course/:courseId/participant/:participantId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																":programId",
+																"course",
+																":courseId",
+																"participant",
+																":participantId"
+															],
+															"variable": [
+																{
+																	"key": "programId",
+																	"value": "<integer>",
+																	"description": "id of the program"
+																},
+																{
+																	"key": "courseId",
+																	"value": "<integer>",
+																	"description": "id of the course"
+																},
+																{
+																	"key": "participantId",
+																	"value": "<integer>",
+																	"description": "id of the Participant"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "successful operation",
+															"originalRequest": {
+																"method": "POST",
+																"header": [],
+																"body": {
+																	"mode": "raw",
+																	"raw": ""
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/<integer>/course/<integer>/participant/<integer>",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		"<integer>",
+																		"course",
+																		"<integer>",
+																		"participant",
+																		"<integer>"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "Text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "text/plain"
+																}
+															],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "session",
+											"item": [
+												{
+													"name": "{session Id}",
+													"item": [
+														{
+															"name": "Details of a session for a given course and program",
+															"request": {
+																"auth": {
+																	"type": "noauth"
+																},
+																"method": "GET",
+																"header": [],
+																"body": {
+																	"mode": "raw",
+																	"raw": ""
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/:programId/course/:courseId/session/:sessionId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		":programId",
+																		"course",
+																		":courseId",
+																		"session",
+																		":sessionId"
+																	],
+																	"variable": [
+																		{
+																			"key": "programId",
+																			"value": "<integer>",
+																			"description": "id of the program"
+																		},
+																		{
+																			"key": "courseId",
+																			"value": "<integer>",
+																			"description": "id of the course"
+																		},
+																		{
+																			"key": "sessionId",
+																			"value": "<integer>",
+																			"description": "id of the session"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "successful operation",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [],
+																		"body": {
+																			"mode": "raw",
+																			"raw": ""
+																		},
+																		"url": {
+																			"raw": "{{baseUrl}}/program/<integer>/course/<integer>/session/<integer>",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"program",
+																				"<integer>",
+																				"course",
+																				"<integer>",
+																				"session",
+																				"<integer>"
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "Text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "application/json"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n \"id\": \"<long>\",\n \"startDateTime\": \"<dateTime>\",\n \"endDateTime\": \"<dateTime>\",\n \"price\": \"<double>\",\n \"room\": \"<string>\"\n}"
+																}
+															]
+														},
+														{
+															"name": "delete a session by id for a given course and program",
+															"request": {
+																"auth": {
+																	"type": "noauth"
+																},
+																"method": "DELETE",
+																"header": [],
+																"body": {
+																	"mode": "raw",
+																	"raw": ""
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/:programId/course/:courseId/session/:sessionId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		":programId",
+																		"course",
+																		":courseId",
+																		"session",
+																		":sessionId"
+																	],
+																	"variable": [
+																		{
+																			"key": "programId",
+																			"value": "<integer>",
+																			"description": "id of the program"
+																		},
+																		{
+																			"key": "courseId",
+																			"value": "<integer>",
+																			"description": "id of the course"
+																		},
+																		{
+																			"key": "sessionId",
+																			"value": "<integer>",
+																			"description": "id of the session that have to be deleted"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "successful operation",
+																	"originalRequest": {
+																		"method": "DELETE",
+																		"header": [],
+																		"body": {
+																			"mode": "raw",
+																			"raw": ""
+																		},
+																		"url": {
+																			"raw": "{{baseUrl}}/program/<integer>/course/<integer>/session/<integer>",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"program",
+																				"<integer>",
+																				"course",
+																				"<integer>",
+																				"session",
+																				"<integer>"
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "Text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "text/plain"
+																		}
+																	],
+																	"cookie": [],
+																	"body": ""
+																}
+															]
+														},
+														{
+															"name": "Modify an existing session. Returns the updated session",
+															"request": {
+																"auth": {
+																	"type": "noauth"
+																},
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n}"
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/:programId/course/:courseId/session/:sessionId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		":programId",
+																		"course",
+																		":courseId",
+																		"session",
+																		":sessionId"
+																	],
+																	"variable": [
+																		{
+																			"key": "programId",
+																			"value": "<integer>",
+																			"description": "id of the program"
+																		},
+																		{
+																			"key": "courseId",
+																			"value": "<integer>",
+																			"description": "id of the course"
+																		},
+																		{
+																			"key": "sessionId",
+																			"value": "<integer>",
+																			"description": "id of the session to update"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "successful operation",
+																	"originalRequest": {
+																		"method": "PUT",
+																		"header": [
+																			{
+																				"key": "Content-Type",
+																				"value": "application/json"
+																			}
+																		],
+																		"body": {
+																			"mode": "raw",
+																			"raw": "{\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n}"
+																		},
+																		"url": {
+																			"raw": "{{baseUrl}}/program/<integer>/course/<integer>/session/<integer>",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"program",
+																				"<integer>",
+																				"course",
+																				"<integer>",
+																				"session",
+																				"<integer>"
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "Text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "application/json"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n \"id\": \"<long>\",\n \"startDateTime\": \"<dateTime>\",\n \"endDateTime\": \"<dateTime>\",\n \"price\": \"<double>\",\n \"room\": \"<string>\"\n}"
+																}
+															]
+														}
+													],
+													"_postman_isSubFolder": true
+												},
+												{
+													"name": "List all sessions for a given course and program",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/:programId/course/:courseId/session",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																":programId",
+																"course",
+																":courseId",
+																"session"
+															],
+															"variable": [
+																{
+																	"key": "programId",
+																	"value": "<integer>",
+																	"description": "id of the program"
+																},
+																{
+																	"key": "courseId",
+																	"value": "<integer>",
+																	"description": "id of the course"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "successful operation",
+															"originalRequest": {
+																"method": "GET",
+																"header": [],
+																"body": {
+																	"mode": "raw",
+																	"raw": ""
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/<integer>/course/<integer>/session",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		"<integer>",
+																		"course",
+																		"<integer>",
+																		"session"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "Text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json"
+																}
+															],
+															"cookie": [],
+															"body": "[\n {\n  \"id\": \"<long>\",\n  \"startDateTime\": \"<dateTime>\",\n  \"endDateTime\": \"<dateTime>\",\n  \"price\": \"<double>\",\n  \"room\": \"<string>\"\n },\n {\n  \"id\": \"<long>\",\n  \"startDateTime\": \"<dateTime>\",\n  \"endDateTime\": \"<dateTime>\",\n  \"price\": \"<double>\",\n  \"room\": \"<string>\"\n }\n]"
+														}
+													]
+												},
+												{
+													"name": "Create new session(s) for a given course and program",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "[\n    {\n        \"id\": \"<long>\",\n        \"startDateTime\": \"<dateTime>\",\n        \"endDateTime\": \"<dateTime>\",\n        \"price\": \"<double>\",\n        \"room\": \"<string>\"\n    },\n    {\n        \"id\": \"<long>\",\n        \"startDateTime\": \"<dateTime>\",\n        \"endDateTime\": \"<dateTime>\",\n        \"price\": \"<double>\",\n        \"room\": \"<string>\"\n    }\n]"
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/:programId/course/:courseId/session",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																":programId",
+																"course",
+																":courseId",
+																"session"
+															],
+															"variable": [
+																{
+																	"key": "programId",
+																	"value": "<integer>",
+																	"description": "id of the program"
+																},
+																{
+																	"key": "courseId",
+																	"value": "<integer>",
+																	"description": "id of the course"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "successful operation",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "[\n    {\n        \"id\": \"<long>\",\n        \"startDateTime\": \"<dateTime>\",\n        \"endDateTime\": \"<dateTime>\",\n        \"price\": \"<double>\",\n        \"room\": \"<string>\"\n    },\n    {\n        \"id\": \"<long>\",\n        \"startDateTime\": \"<dateTime>\",\n        \"endDateTime\": \"<dateTime>\",\n        \"price\": \"<double>\",\n        \"room\": \"<string>\"\n    }\n]"
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/program/<integer>/course/<integer>/session",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"program",
+																		"<integer>",
+																		"course",
+																		"<integer>",
+																		"session"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "Text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json"
+																}
+															],
+															"cookie": [],
+															"body": "[\n {\n  \"id\": \"<long>\",\n  \"startDateTime\": \"<dateTime>\",\n  \"endDateTime\": \"<dateTime>\",\n  \"price\": \"<double>\",\n  \"room\": \"<string>\"\n },\n {\n  \"id\": \"<long>\",\n  \"startDateTime\": \"<dateTime>\",\n  \"endDateTime\": \"<dateTime>\",\n  \"price\": \"<double>\",\n  \"room\": \"<string>\"\n }\n]"
+														}
+													]
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "Detail of a course for a given program",
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{baseUrl}}/program/:programId/course/:courseId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"program",
+														":programId",
+														"course",
+														":courseId"
+													],
+													"variable": [
+														{
+															"key": "programId",
+															"value": "<integer>",
+															"description": "id of the program"
+														},
+														{
+															"key": "courseId",
+															"value": "<integer>",
+															"description": "id of the course that have to be getted"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "successful operation",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/<integer>/course/<integer>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																"<integer>",
+																"course",
+																"<integer>"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n \"id\": \"<long>\",\n \"quarter\": \"<integer>\",\n \"year\": \"<integer>\",\n \"maxNumberOfParticipants\": \"<integer>\",\n \"status\": \"<string>\",\n \"sessions\": [\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  },\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  }\n ]\n}"
+												}
+											]
+										},
+										{
+											"name": "delete a course for a given program",
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{baseUrl}}/program/:programId/course/:courseId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"program",
+														":programId",
+														"course",
+														":courseId"
+													],
+													"variable": [
+														{
+															"key": "programId",
+															"value": "<integer>",
+															"description": "id of the program"
+														},
+														{
+															"key": "courseId",
+															"value": "<integer>",
+															"description": "id of the course that have to be deleted"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "successful operation",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/<integer>/course/<integer>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																"<integer>",
+																"course",
+																"<integer>"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "text/plain"
+														}
+													],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										},
+										{
+											"name": "Update an existing course. Returns the updated course",
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        },\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        }\n    ]\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/program/:programId/course/:courseId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"program",
+														":programId",
+														"course",
+														":courseId"
+													],
+													"variable": [
+														{
+															"key": "programId",
+															"value": "<integer>",
+															"description": "id of the program"
+														},
+														{
+															"key": "courseId",
+															"value": "<integer>",
+															"description": "id of the course to update"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "successful operation",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        },\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        }\n    ]\n}"
+														},
+														"url": {
+															"raw": "{{baseUrl}}/program/<integer>/course/<integer>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"program",
+																"<integer>",
+																"course",
+																"<integer>"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n \"id\": \"<long>\",\n \"quarter\": \"<integer>\",\n \"year\": \"<integer>\",\n \"maxNumberOfParticipants\": \"<integer>\",\n \"status\": \"<string>\",\n \"sessions\": [\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  },\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  }\n ]\n}"
+												}
+											]
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get all course for a given program",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/program/:programId/course",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"program",
+												":programId",
+												"course"
+											],
+											"variable": [
+												{
+													"key": "programId",
+													"value": "1",
+													"description": "id of the program"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "successful operation",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{baseUrl}}/program/<integer>/course",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"program",
+														"<integer>",
+														"course"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n {\n  \"id\": \"<long>\",\n  \"quarter\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"maxNumberOfParticipants\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"sessions\": [\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   },\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   }\n  ]\n },\n {\n  \"id\": \"<long>\",\n  \"quarter\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"maxNumberOfParticipants\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"sessions\": [\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   },\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   }\n  ]\n }\n]"
+										}
+									]
+								},
+								{
+									"name": "Add a new course to an existing program",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\r  \"quarter\": \"2\",\r\r  \"year\": 2018,\r\r  \"maxNumberOfParticipants\": 5\r\r}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/program/:programId/course",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"program",
+												":programId",
+												"course"
+											],
+											"variable": [
+												{
+													"key": "programId",
+													"value": "1",
+													"description": "id of the program in which the course have to be added"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "successful operation",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        },\n        {\n            \"id\": \"<long>\",\n            \"startDateTime\": \"<dateTime>\",\n            \"endDateTime\": \"<dateTime>\",\n            \"price\": \"<double>\",\n            \"room\": \"<string>\"\n        }\n    ]\n}"
+												},
+												"url": {
+													"raw": "{{baseUrl}}/program/<integer>/course",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"program",
+														"<integer>",
+														"course"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"id\": \"<long>\",\n \"quarter\": \"<integer>\",\n \"year\": \"<integer>\",\n \"maxNumberOfParticipants\": \"<integer>\",\n \"status\": \"<string>\",\n \"sessions\": [\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  },\n  {\n   \"id\": \"<long>\",\n   \"startDateTime\": \"<dateTime>\",\n   \"endDateTime\": \"<dateTime>\",\n   \"price\": \"<double>\",\n   \"room\": \"<string>\"\n  }\n ]\n}"
+										}
+									]
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "View the details of a training program",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/program/:programId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"program",
+										":programId"
+									],
+									"variable": [
+										{
+											"key": "programId",
+											"value": "1",
+											"description": "id of the program to retrieve"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/program/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"program",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"name\": \"<string>\",\n \"richDescription\": \"<string>\",\n \"field\": \"<string>\",\n \"price\": \"<string>\",\n \"id\": \"<long>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete an existing training program",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/program/:programId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"program",
+										":programId"
+									],
+									"variable": [
+										{
+											"key": "programId",
+											"value": "<integer>",
+											"description": "id of the program to delete"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/program/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"program",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "update an existing training program. Returns the updated training program.",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Cuisine coréenne updated\",\r\n  \"richDescription\": \" Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins... \",\r\n  \"field\": \"Gatronomie\",\r\n  \"price\": 150\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/program/:programId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"program",
+										":programId"
+									],
+									"variable": [
+										{
+											"key": "programId",
+											"value": "1",
+											"description": "id of the program to update"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"<string>\",\n    \"richDescription\": \"<string>\",\n    \"field\": \"<string>\",\n    \"price\": \"<string>\",\n    \"id\": \"<long>\",\n    \"courses\": [\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        },\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/program/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"program",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"name\": \"<string>\",\n \"richDescription\": \"<string>\",\n \"field\": \"<string>\",\n \"price\": \"<string>\",\n \"id\": \"<long>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "List all training programs",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/program",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"program"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/program",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"program"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"name\": \"<string>\",\n  \"richDescription\": \"<string>\",\n  \"field\": \"<string>\",\n  \"id\": \"<long>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n },\n {\n  \"name\": \"<string>\",\n  \"richDescription\": \"<string>\",\n  \"field\": \"<string>\",\n  \"id\": \"<long>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create a new training program",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Cuisine coréenne\",\r\n  \"richDescription\": \" Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins... \",\r\n  \"field\": \"Gatronomie\",\r\n  \"price\": 150\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/program",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"program"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"richDescription\": \"<string>\",\n    \"field\": \"<string>\",\n    \"price\": \"<string>\",\n    \"id\": \"<long>\",\n    \"courses\": [\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        },\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/program",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"program"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"<string>\",\n \"richDescription\": \"<string>\",\n \"field\": \"<string>\",\n \"price\": \"<string>\",\n \"id\": \"<long>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "participant",
+			"item": [
+				{
+					"name": "{participant Id}",
+					"item": [
+						{
+							"name": "Detail of a participant",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant/:participantId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant",
+										":participantId"
+									],
+									"variable": [
+										{
+											"key": "participantId",
+											"value": "<integer>",
+											"description": "id of the participant that have to be getted"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/participant/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participant",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"id\": \"<long>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"birthdate\": \"<date>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete an existing participant by id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant/:participantId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant",
+										":participantId"
+									],
+									"variable": [
+										{
+											"key": "participantId",
+											"value": "<integer>",
+											"description": "id of the person that have to be deleted"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/participant/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participant",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Modify an existing participant",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"birthdate\": \"<date>\",\n    \"courses\": [\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        },\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant/:participantId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant",
+										":participantId"
+									],
+									"variable": [
+										{
+											"key": "participantId",
+											"value": "<integer>",
+											"description": "id of the person that have to be modified"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"<long>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"birthdate\": \"<date>\",\n    \"courses\": [\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        },\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/participant/<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participant",
+												"<integer>"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"id\": \"<long>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"birthdate\": \"<date>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "List all courses in which a participant is registered",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant/:participantId/summary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant",
+										":participantId",
+										"summary"
+									],
+									"variable": [
+										{
+											"key": "participantId",
+											"value": "<integer>",
+											"description": "id of the participant"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{baseUrl}}/participant/<integer>/summary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participant",
+												"<integer>",
+												"summary"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n {\n  \"id\": \"<long>\",\n  \"quarter\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"maxNumberOfParticipants\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"sessions\": [\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   },\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   }\n  ]\n },\n {\n  \"id\": \"<long>\",\n  \"quarter\": \"<integer>\",\n  \"year\": \"<integer>\",\n  \"maxNumberOfParticipants\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"sessions\": [\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   },\n   {\n    \"id\": \"<long>\",\n    \"startDateTime\": \"<dateTime>\",\n    \"endDateTime\": \"<dateTime>\",\n    \"price\": \"<double>\",\n    \"room\": \"<string>\"\n   }\n  ]\n }\n]"
+								}
+							]
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "List all participants",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/participant",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"participant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"id\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"birthdate\": \"<date>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n },\n {\n  \"id\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"birthdate\": \"<date>\",\n  \"courses\": [\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   },\n   {\n    \"id\": \"<long>\",\n    \"quarter\": \"<integer>\",\n    \"year\": \"<integer>\",\n    \"maxNumberOfParticipants\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"sessions\": [\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     },\n     {\n      \"id\": \"<long>\",\n      \"startDateTime\": \"<dateTime>\",\n      \"endDateTime\": \"<dateTime>\",\n      \"price\": \"<double>\",\n      \"room\": \"<string>\"\n     }\n    ]\n   }\n  ]\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add a new Participant",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\r  \"firstName\": \"Sabrina\",\r\r  \"lastName\": \"Hillow\",\r\r  \"birthdate\": \"15.03.1997\"\r\r}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/participant",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"participant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<long>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"birthdate\": \"<date>\",\n    \"courses\": [\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        },\n        {\n            \"id\": \"<long>\",\n            \"quarter\": \"<integer>\",\n            \"year\": \"<integer>\",\n            \"maxNumberOfParticipants\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"sessions\": [\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                },\n                {\n                    \"id\": \"<long>\",\n                    \"startDateTime\": \"<dateTime>\",\n                    \"endDateTime\": \"<dateTime>\",\n                    \"price\": \"<double>\",\n                    \"room\": \"<string>\"\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participant",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": \"<long>\",\n \"firstName\": \"<string>\",\n \"lastName\": \"<string>\",\n \"birthdate\": \"<date>\",\n \"courses\": [\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  },\n  {\n   \"id\": \"<long>\",\n   \"quarter\": \"<integer>\",\n   \"year\": \"<integer>\",\n   \"maxNumberOfParticipants\": \"<integer>\",\n   \"status\": \"<string>\",\n   \"sessions\": [\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    },\n    {\n     \"id\": \"<long>\",\n     \"startDateTime\": \"<dateTime>\",\n     \"endDateTime\": \"<dateTime>\",\n     \"price\": \"<double>\",\n     \"room\": \"<string>\"\n    }\n   ]\n  }\n ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b113916f-8dd0-4fd7-bd41-10e6bc524812",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2699258a-71a5-4201-b249-5d4f9599635b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "85e7d4f0-c3fd-44ac-bb51-ad49132f8477",
+			"key": "baseUrl",
+			"value": "localhost:8080/19p_projet1_war_exploded/koulutus/api",
+			"type": "string"
+		}
+	]
+}
