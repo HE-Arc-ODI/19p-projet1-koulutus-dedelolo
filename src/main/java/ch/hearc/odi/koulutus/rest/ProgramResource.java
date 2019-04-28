@@ -105,7 +105,7 @@ public class ProgramResource {
 
   @DELETE
   @Path("{programId}/course/{courseId}/session/{sessionId}")
-  public Response programeDeleteSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
+  public Response programDeleteSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
     try{
       persistenceService.deleteSessionFromProgramCourse(programid,courseid,sessionid);
       return Response.status(Response.Status.OK).build();
@@ -115,7 +115,18 @@ public class ProgramResource {
     }//todo fonction a tester lorsque course sera fait 28.04.2019
   }
 
-  @POST
+  @PUT
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Session programPutSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid, Session session){
+    try{
+      return persistenceService.updateSessionFromProgramCourse(programid,courseid,sessionid,session.getStartDateTime(),session.getEndDateTime(),session.getPrice(),session.getRoom());
+    }catch (ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+
+    @POST
   @Path("{programId}/course/{courseId}/participant/{participantId}")
   public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){
     try{
