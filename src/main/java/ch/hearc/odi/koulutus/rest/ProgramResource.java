@@ -92,6 +92,17 @@ public class ProgramResource {
     }//todo fonction a tester lorsque course sera fait 28.04.2019
   }
 
+  @GET
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Session programCourseSessionGetDetails(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
+    try {
+      return persistenceService.getDetailsForGivenCourseAndProgram(programid, courseid, sessionid);
+    }catch(Exception e){
+      e.printStackTrace();
+      throw new NotFoundException("the program or course does not exist");
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
   @POST
   @Path("{programId}/course/{courseId}/participant/{participantId}")
   public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){

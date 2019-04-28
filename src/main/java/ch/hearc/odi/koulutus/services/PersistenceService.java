@@ -72,7 +72,7 @@ public class PersistenceService {
    *
    * @return a program
    */
-  public Program getProgramById(Long programId) throws ProgramException {
+  private Program getProgramById(Long programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
@@ -86,6 +86,48 @@ public class PersistenceService {
     entityManager.close();
     logger.info("Program " + programId + " was found");
     return program;
+  }
+
+  /**
+   * Return course by ID
+   *
+   * @return a course
+   */
+  private Course getCourseById(Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = entityManager.find(Course.class, courseId);
+
+    if (course == null) {
+      logger.warn("Course " + courseId + " was not found");
+      throw new ProgramException("Course " + courseId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Course " + courseId + " was found");
+    return course;
+  }
+
+  /**
+   * Return session by ID
+   *
+   * @return a session
+   */
+  private Session getSessionById(Long sessionId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Session session = entityManager.find(Session.class, sessionId);
+
+    if (session == null) {
+      logger.warn("Session " + sessionId + " was not found");
+      throw new ProgramException("Session " + sessionId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Session " + sessionId + " was found");
+    return session;
   }
 
   /**
@@ -161,8 +203,7 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = getProgramById(programId);
-    Course course = new Course();
-    course = entityManager.find(Course.class, courseId);
+    Course course = getCourseById(courseId);
 
     if(course == null || program == null){
       logger.warn("Program or course was not found");
@@ -176,6 +217,26 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     return course.getSessions();
+  }
+
+  /**
+   * Return details of a session for a given course and program
+   *
+   * @return a session
+   */
+  public Session getDetailsForGivenCourseAndProgram(Long programid, Long courseid, Long sessionid) throws ProgramException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programid);
+    Course course = getCourseById(courseid);
+    Session session = getSessionById(sessionid);
+
+    if(course == null || program == null || session == null){
+      logger.warn("Program or course or session was not found");
+      throw new ProgramException("Program or course or session was not found");
+    }
+    entityManager.close();
+    return session;
   }
 
 
