@@ -145,4 +145,8 @@ public class Course{
     public void setParticipant(Participant participant) {
         this.participant = participant;
     }
+
+    public void addSession(Session s){
+        sessions.add(s);
+    }
 }

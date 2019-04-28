@@ -61,6 +61,16 @@ public class ProgramResource {
     }
   }
 
+  @PUT
+  @Path("{programId}")
+  public Program programPut(@PathParam("programId") Long programid, Program program){
+    try{
+      return persistenceService.putProgram(programid, program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+    }catch (ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
   @GET
   @Path("{programId}/course/{courseId}/session")
   public List<Session> programCourseSessionGet(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
@@ -72,14 +82,14 @@ public class ProgramResource {
     }//todo fonction a tester lorsque course sera fait 27.04.2019
   }
 
-  @PUT
-  @Path("{programId}")
-  public Program programPut(@PathParam("programId") Long programid, Program program){
-    try{
-      return persistenceService.putProgram(programid, program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
-    }catch (ProgramException e){
+  @POST
+  @Path("{programId}/course/{courseId}/session")
+  public List<Session> programCreateNewSessionsForCourseAndProgram(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, List<Session> sessions){
+    try {
+      return persistenceService.registerSessionsForCourseAndProgram(programid, courseid, sessions);
+    }catch(ProgramException e){
       throw new NotFoundException("the program does not exist");
-    }
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
   }
 
   @POST

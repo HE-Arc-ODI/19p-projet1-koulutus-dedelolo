@@ -109,28 +109,6 @@ public class PersistenceService {
   }
 
   /**
-   * Return all sessions for a given course and program
-   *
-   * @return sessions
-   */
-  public ArrayList<Session> getSessionsForGivenCourseAndProgram(Long programId, Long courseId) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    TypedQuery<Session> query = entityManager
-        .createQuery("SELECT s.id from Session s JOIN Course c JOIN Program p where p.id = :programId AND c.id = :courseId", Session.class);
-    List<Session> sessions = query.setParameter("programId",programId).setParameter("courseId",courseId).getResultList();
-
-    if(sessions == null){
-      logger.warn("Program or course was not found");
-      throw new ProgramException("Program or course was not found");
-    }
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    logger.info(sessions.size()+" sessions were returned");
-    return (ArrayList<Session>) sessions;
-  }
-
-  /**
    * Update a program
    *
    * @return program
@@ -151,6 +129,55 @@ public class PersistenceService {
     logger.info("Program " + programid + " was updated");
     return programUpdated;
   }
+
+  /**
+   * Return all sessions for a given course and program
+   *
+   * @return sessions
+   */
+  public List<Session> getSessionsForGivenCourseAndProgram(Long programId, Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Session> query = entityManager
+        .createQuery("SELECT s.id from Session s JOIN Course c JOIN Program p where p.id = :programId AND c.id = :courseId", Session.class);
+    List<Session> sessions = query.setParameter("programId",programId).setParameter("courseId",courseId).getResultList();
+
+    if(sessions == null){
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info(sessions.size()+" sessions were returned");
+    return sessions;
+  }
+
+  /**
+   * Create sessions for a given course and program
+   *
+   * @return list of sessions
+   */
+  public List<Session> registerSessionsForCourseAndProgram(Long programId, Long courseId, List<Session> sessions) throws ProgramException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programId);
+    Course course = new Course();
+    course = entityManager.find(Course.class, courseId);
+
+    if(course == null || program == null){
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    for (Session s:sessions){
+      course.addSession(s);
+      logger.info("Session "+s.getId()+" added to course "+course.getId());
+    }
+    entityManager.persist(course);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return course.getSessions();
+  }
+
 
   /**
    * Return all existing participant
