@@ -72,7 +72,7 @@ public class PersistenceService {
    *
    * @return a program
    */
-  private Program getProgramById(Long programId) throws ProgramException {
+  public Program getProgramById(Long programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
