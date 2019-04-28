@@ -122,7 +122,7 @@ public class ProgramResource {
       return persistenceService.updateSessionFromProgramCourse(programid,courseid,sessionid,session.getStartDateTime(),session.getEndDateTime(),session.getPrice(),session.getRoom());
     }catch (ProgramException e){
       throw new NotFoundException("the program does not exist");
-    }
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
   }
 
 
