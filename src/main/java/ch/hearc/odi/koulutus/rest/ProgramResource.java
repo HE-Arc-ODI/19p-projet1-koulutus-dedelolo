@@ -103,6 +103,18 @@ public class ProgramResource {
     }//todo fonction a tester lorsque course sera fait 28.04.2019
   }
 
+  @DELETE
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Response programeDeleteSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
+    try{
+      persistenceService.deleteSessionFromProgramCourse(programid,courseid,sessionid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
   @POST
   @Path("{programId}/course/{courseId}/participant/{participantId}")
   public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){

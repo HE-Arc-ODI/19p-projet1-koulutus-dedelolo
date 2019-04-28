@@ -241,6 +241,27 @@ public class PersistenceService {
 
 
   /**
+   * delete a session by id for a given course and program
+   *
+   * @return void
+   */
+  public void deleteSessionFromProgramCourse(Long programid, Long courseid, Long sessionid) throws ProgramException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programid);
+    Course course = getCourseById(courseid);
+    Session session = getSessionById(sessionid);
+
+    if(course == null || program == null || session == null){
+      logger.warn("Program or course or session was not found");
+      throw new ProgramException("Program or course or session was not found");
+    }
+    entityManager.remove(session);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Session " + sessionid + " was deleted");
+  }
+  /**
    * Return all existing participant
    *
    * @return a list
