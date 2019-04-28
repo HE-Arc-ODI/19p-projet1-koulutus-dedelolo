@@ -14,6 +14,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -69,5 +70,27 @@ public class ProgramResource {
       e.printStackTrace();
       throw new NotFoundException("the program or course does not exist");
     }//todo fonction a tester lorsque course sera fait 27.04.2019
+  }
+
+  @PUT
+  @Path("{programId}")
+  public Program programPut(@PathParam("programId") Long programid, Program program){
+    try{
+      return persistenceService.putProgram(programid, program.getName(),program.getRichDescription(),program.getField(),program.getPrice());
+    }catch (ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @POST
+  @Path("{programId}/course/{courseId}/participant/{participantId}")
+  public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){
+    try{
+      persistenceService.registerParticipantToCourse(programid,courseid,participantid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }
   }
 }
