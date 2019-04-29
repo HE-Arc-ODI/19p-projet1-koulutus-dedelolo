@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
@@ -188,10 +189,16 @@ public class ProgramResource {
   public Course programPutCourseFromProgram(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, Course course) {
     try{
       return persistenceService.updateCourseFromProgram(programid,courseid,course.getQuarter(),course.getYear(),course.getMaxNumberOfParticipants());
-    }catch (Exception e){
+    }catch (ProgramException e){
       e.printStackTrace();
       throw new NotFoundException("the program does not exist");
     }
+  }
+
+  @GET
+  @Path("/program/{programId}/course/{courseId}/participant")
+  public List<Participant> programGetParticipantFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
+    return persistenceService.getParticipantsFromProgramCourse(programid,courseid);
   }
 
 }

@@ -534,12 +534,23 @@ public class PersistenceService {
     logger.info("Course " + courseid + " was updated");
     return CourseUpdated;
   }
-  private Long id;
-  private QuarterEnum quarter;
-  private Integer year;
-  private Integer maxNumberOfParticipants;
-  private StatusEnum status;
-  private List<Session> sessions;
+
+  /**
+   * Return all existing participant from a course and program
+   *
+   * @return a list
+   */
+  public List<Participant> getParticipantsFromProgramCourse(Long programid, Long courseid) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Participant> query = entityManager
+        .createQuery("SELECT pa from Participant pa JOIN Course c JOIN Program p where pa.id = :programId AND c.id = :courseId", Participant.class);
+    List<Participant> participants = query.setParameter("programId",programid).setParameter("courseId",courseid).getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of participant. Total :"+participants.size());
+    return participants;
+  }
 
   @Override
   public void finalize() throws Throwable {
