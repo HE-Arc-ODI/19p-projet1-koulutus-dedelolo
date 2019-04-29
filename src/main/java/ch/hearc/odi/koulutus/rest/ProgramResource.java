@@ -2,9 +2,11 @@ package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -70,7 +72,62 @@ public class ProgramResource {
     }
   }
 
+  @GET
+  @Path("{programId}/course/{courseId}/session")
+  public List<Session> programCourseSessionGet(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
+    try {
+      return persistenceService.getSessionsForGivenCourseAndProgram(programid, courseid);
+    }catch(Exception e){
+      e.printStackTrace();
+      throw new NotFoundException("the program or course does not exist");
+    }//todo fonction a tester lorsque course sera fait 27.04.2019
+  }
+
   @POST
+  @Path("{programId}/course/{courseId}/session")
+  public List<Session> programCreateNewSessionsForCourseAndProgram(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, List<Session> sessions){
+    try {
+      return persistenceService.registerSessionsForCourseAndProgram(programid, courseid, sessions);
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
+  @GET
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Session programCourseSessionGetDetails(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
+    try {
+      return persistenceService.getDetailsForGivenCourseAndProgram(programid, courseid, sessionid);
+    }catch(Exception e){
+      e.printStackTrace();
+      throw new NotFoundException("the program or course does not exist");
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
+  @DELETE
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Response programDeleteSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid){
+    try{
+      persistenceService.deleteSessionFromProgramCourse(programid,courseid,sessionid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
+  @PUT
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Session programPutSessionFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("sessionId") Long sessionid, Session session){
+    try{
+      return persistenceService.updateSessionFromProgramCourse(programid,courseid,sessionid,session.getStartDateTime(),session.getEndDateTime(),session.getPrice(),session.getRoom());
+    }catch (ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }//todo fonction a tester lorsque course sera fait 28.04.2019
+  }
+
+
+    @POST
   @Path("{programId}/course/{courseId}/participant/{participantId}")
   public Response programRegisterParticipantToCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, @PathParam("participantId") Long participantid){
     try{
