@@ -171,5 +171,16 @@ public class ProgramResource {
     }
   }
 
+  @DELETE
+  @Path("{programId}/course/{courseId}")
+  public Response programDeleteCourseById(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid) {
+    try{
+      persistenceService.deleteCourseByProgramId(programid,courseid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }
+  }
 
 }

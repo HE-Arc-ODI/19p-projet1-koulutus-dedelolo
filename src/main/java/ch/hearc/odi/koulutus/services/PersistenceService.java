@@ -204,7 +204,7 @@ public class PersistenceService {
     if (program != null) {
       program.addCourse(course);
       entityManager.persist(course);
-      entityManager.persist(program);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
+      //entityManager.persist(program);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
       entityManager.getTransaction().commit();
       entityManager.close();
     } else {
@@ -489,6 +489,28 @@ public class PersistenceService {
     logger.info("Course " + course.getId() + " was found");
     return course;
   }
+
+  /**
+   * Delete a course by id
+   *
+   * @return void
+   */
+  public void deleteCourseByProgramId(Long programId, Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programId);
+    Course course = getCourseById(courseId);
+
+    if (program == null || course == null) {
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    entityManager.remove(course);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Course " + courseId + " was deleted");
+  }
+
 
 
   @Override
