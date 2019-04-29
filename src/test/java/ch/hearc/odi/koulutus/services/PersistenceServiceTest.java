@@ -2,8 +2,8 @@ package ch.hearc.odi.koulutus.services;
 
 import static org.junit.Assert.*;
 
-import ch.hearc.odi.koulutus.business.Participant;
-import ch.hearc.odi.koulutus.business.Pojo;
+import ch.hearc.odi.koulutus.business.*;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,8 +13,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import ch.hearc.odi.koulutus.business.Program;
-import ch.hearc.odi.koulutus.business.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,13 +70,29 @@ public class PersistenceServiceTest {
     assertEquals(participant, actualParticipant);
   }
 
-  /*
   @Test
-  public void List<Session> registerSessionsForCourseAndProgram() {
-    Long testProgramID = Long.valueOf(123123L);
-    Long testCourseID = Long.valueOf((long) 456456D);
+  public void registerParticipantToCourse(Long programid, Long courseid, Long participantid){
+    Long testProgramID = Long.valueOf("12345e");
+    Long testCourseID = Long.valueOf("12345ef");
+    Long testParticipID = Long.valueOf("12345efg");
+    Program program = persistenceService.registerParticipantToCourse(Long.valueOf("12345e"),Long.valueOf("12345ef"),Long.valueOf("12345efg"));
+
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    long expectedProgramID = program.getId();
+
+    Participant actParticipant = entityManager.find(Participant.class, participantid);
+    Course actCourse = entityManager.find(Course.class, courseid);
+    program = entityManager.find(Program.class, programid);
+
+    assertEquals(actParticipant, actCourse);
+  }
+
+  @Test
+  public void registerSessionsForCourseAndProgram() {
+    Long testProgramID = Long.valueOf("123123L");
+    Long testCourseID = Long.valueOf("456456D");
     List<Session> testSessions;
-    Session session = persistenceService.registerSessionsForCourseAndProgram(Long.valueOf(123123L), Long.valueOf(456456D, List<Session> testSessions);
+    Session session = persistenceService.registerSessionsForCourseAndProgram(Long.valueOf("123123L"), Long.valueOf("456456D"), testSessions);
 
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     long expectedCourseID = testCourseID;
@@ -87,7 +101,38 @@ public class PersistenceServiceTest {
 
     //assertEquals(participant, actualParticipant);
   }
-  */
+
+  @Test
+  public void deleteProgram(Long programId) {
+
+  }
+
+  @Test
+  public void putProgram(Long programid, String name, String richDescription, String field, BigDecimal price) {
+
+  }
+
+  @Test
+  public void deleteSessionFromProgramCourse(Long programid, Long courseid, Long sessionid){
+
+  }
+
+  @Test
+  public Session updateSessionFromProgramCourse(Long programid, Long courseid, Long sessionid, Date startDateTime, Date endDateTime, Double price, String room){
+
+  }
+
+  @Test
+  public void deleteParticipant(Long participantId){
+
+  }
+
+  @Test
+  public Participant putParticipant(Long participantId, String firstname, String lastname, Date birthdate){
+
+  }
+
+
 
 /*
   @Test
