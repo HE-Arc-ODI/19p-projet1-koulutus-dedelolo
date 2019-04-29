@@ -481,7 +481,7 @@ public class PersistenceService {
 
     if (program == null || course == null) {
       logger.warn("Program or course was not found");
-      throw new ParticipantException("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
     }
 
     entityManager.getTransaction().commit();

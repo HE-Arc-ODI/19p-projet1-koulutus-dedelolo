@@ -165,7 +165,7 @@ public class ProgramResource {
   @Path("{programId}/course/{courseId}")
   public Course programGetCourseById(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid) {
     try{
-      return persistenceService.getProgramCourseById(programid);
+      return persistenceService.getProgramCourseById(programid, courseid);
     }catch(ProgramException e){
       throw new NotFoundException("the program does not exist");
     }
