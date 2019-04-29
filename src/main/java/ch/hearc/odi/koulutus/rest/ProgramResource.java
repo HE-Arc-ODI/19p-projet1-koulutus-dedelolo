@@ -1,5 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
+import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
@@ -137,4 +139,66 @@ public class ProgramResource {
       return Response.status(Status.NOT_FOUND).build();
     }
   }
+
+  @GET
+  @Path("{programId}/course")
+  public List<Course> programGetAllCourse(@PathParam("programId") Long programid){
+    try{
+      return persistenceService.getProgramAllCourse(programid);
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @POST
+  @Path("{programId}/course")
+  public Course programGetAllCourse(@PathParam("programId") Long programid, Course course) {
+    try {
+      return persistenceService
+          .addNewCourseToExistingProgram(programid, course.getId(), course.getQuarter(),
+              course.getYear(), course.getMaxNumberOfParticipants());
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @GET
+  @Path("{programId}/course/{courseId}")
+  public Course programGetCourseById(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid) {
+    try{
+      return persistenceService.getProgramCourseById(programid, courseid);
+    }catch(ProgramException e){
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @DELETE
+  @Path("{programId}/course/{courseId}")
+  public Response programDeleteCourseById(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid) {
+    try{
+      persistenceService.deleteCourseByProgramId(programid,courseid);
+      return Response.status(Response.Status.OK).build();
+    }catch (Exception e){
+      e.printStackTrace();
+      return Response.status(Status.NOT_FOUND).build();
+    }
+  }
+
+  @PUT
+  @Path("/program/{programId}/course/{courseId}")
+  public Course programPutCourseFromProgram(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, Course course) {
+    try{
+      return persistenceService.updateCourseFromProgram(programid,courseid,course.getQuarter(),course.getYear(),course.getMaxNumberOfParticipants());
+    }catch (ProgramException e){
+      e.printStackTrace();
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @GET
+  @Path("/program/{programId}/course/{courseId}/participant")
+  public List<Participant> programGetParticipantFromProgramCourse(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid){
+    return persistenceService.getParticipantsFromProgramCourse(programid,courseid);
+  }
+
 }

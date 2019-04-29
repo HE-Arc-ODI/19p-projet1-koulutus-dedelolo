@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -68,6 +69,7 @@ public class Course{
     private StatusEnum status;
     private List<Session> sessions;
     private Participant participant;
+    private Course course;
 
     public Course() {
         sessions = new ArrayList<>();
@@ -148,5 +150,15 @@ public class Course{
 
     public void addSession(Session s){
         sessions.add(s);
+    }
+
+    @ManyToOne
+    @JsonBackReference(value="user-course")
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

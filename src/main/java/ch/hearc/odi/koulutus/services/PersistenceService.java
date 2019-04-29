@@ -6,6 +6,8 @@ package ch.hearc.odi.koulutus.services;
 
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Course.QuarterEnum;
+import ch.hearc.odi.koulutus.business.Course.StatusEnum;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Pojo;
 import ch.hearc.odi.koulutus.business.Program;
@@ -73,18 +75,7 @@ public class PersistenceService {
    * @return a program
    */
   public Program getProgramById(Long programId) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = entityManager.find(Program.class, programId);
-
-    if (program == null) {
-      logger.warn("Program " + programId + " was not found");
-      throw new ProgramException("Program " + programId + " was not found");
-    }
-
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    logger.info("Program " + programId + " was found");
+    Program program = getProgramByID(programId);
     return program;
   }
 
@@ -170,6 +161,57 @@ public class PersistenceService {
 
     logger.info("Program " + programid + " was updated");
     return programUpdated;
+  }
+
+  /**
+   * Return list of course for a given program
+   *
+   * @return list of course
+   */
+  public List<Course> getProgramAllCourse(Long programId) throws ProgramException {
+    Program program = getProgramByID(programId);
+
+    return program.getCourses();
+  }
+
+  private Program getProgramByID(Long programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+
+    if (program == null) {
+      logger.warn("Program " + programId + " was not found");
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Program " + programId + " was found");
+    return program;
+  }
+
+  /**
+   * Add a new course to an existing program
+   *
+   * @return a course
+   */
+  public Course addNewCourseToExistingProgram(Long programId,Long courseId, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = new Course(courseId, quarter, year, maxNumberOfParticipants, StatusEnum.OPEN);
+    Program program = getProgramById(programId);
+
+    if (program != null) {
+      program.addCourse(course);
+      entityManager.persist(course);
+      entityManager.persist(program);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    } else {
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    return course;
   }
 
   /**
@@ -424,6 +466,90 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     logger.info("Participant " + participantid + " was registered to course " + courseid);//todo fonction a tester 27.04.2019
+  }
+
+  /**
+   * Get course by ID
+   *
+   * @return course
+   */
+  public Course getProgramCourseById(Long programId, Long courseId) throws ProgramException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programId);
+    Course course = getCourseById(courseId);
+
+    if (program == null || course == null) {
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Course " + course.getId() + " was found");
+    return course;
+  }
+
+  /**
+   * Delete a course by id
+   *
+   * @return void
+   */
+  public void deleteCourseByProgramId(Long programId, Long courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programId);
+    Course course = getCourseById(courseId);
+
+    if (program == null || course == null) {
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    entityManager.remove(course);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Course " + courseId + " was deleted");
+  }
+
+
+  /**
+   * Update a course from program
+   *
+   * @return course
+   */
+  public Course updateCourseFromProgram(Long programid, Long courseid, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programid);
+    Course course = getCourseById(courseid);
+    if (program == null || course == null) {
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    Course CourseUpdated = new Course(courseid,quarter,year,maxNumberOfParticipants,course.getStatus());
+    entityManager.merge(CourseUpdated);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    logger.info("Course " + courseid + " was updated");
+    return CourseUpdated;
+  }
+
+  /**
+   * Return all existing participant from a course and program
+   *
+   * @return a list
+   */
+  public List<Participant> getParticipantsFromProgramCourse(Long programid, Long courseid) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Participant> query = entityManager
+        .createQuery("SELECT pa from Participant pa JOIN Course c JOIN Program p where pa.id = :programId AND c.id = :courseId", Participant.class);
+    List<Participant> participants = query.setParameter("programId",programid).setParameter("courseId",courseid).getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    logger.info("Retrieve list of participant. Total :"+participants.size());
+    return participants;
   }
 
   @Override
