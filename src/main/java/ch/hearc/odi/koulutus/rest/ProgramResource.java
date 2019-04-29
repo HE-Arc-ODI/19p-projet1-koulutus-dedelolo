@@ -183,4 +183,15 @@ public class ProgramResource {
     }
   }
 
+  @PUT
+  @Path("/program/{programId}/course/{courseId}")
+  public Course programPutCourseFromProgram(@PathParam("programId") Long programid, @PathParam("courseId") Long courseid, Course course) {
+    try{
+      return persistenceService.updateCourseFromProgram(programid,courseid,course.getQuarter(),course.getYear(),course.getMaxNumberOfParticipants());
+    }catch (Exception e){
+      e.printStackTrace();
+      throw new NotFoundException("the program does not exist");
+    }
+  }
+
 }

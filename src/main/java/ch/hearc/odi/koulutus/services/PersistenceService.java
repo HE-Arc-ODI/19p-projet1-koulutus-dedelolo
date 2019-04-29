@@ -204,7 +204,7 @@ public class PersistenceService {
     if (program != null) {
       program.addCourse(course);
       entityManager.persist(course);
-      //entityManager.persist(program);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
+      entityManager.persist(program);//on devrait persister program cependant il y a une erreur lors de la persistencee par la suite.
       entityManager.getTransaction().commit();
       entityManager.close();
     } else {
@@ -512,6 +512,34 @@ public class PersistenceService {
   }
 
 
+  /**
+   * Update a course from program
+   *
+   * @return course
+   */
+  public Course updateCourseFromProgram(Long programid, Long courseid, QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = getProgramById(programid);
+    Course course = getCourseById(courseid);
+    if (program == null || course == null) {
+      logger.warn("Program or course was not found");
+      throw new ProgramException("Program or course was not found");
+    }
+    Course CourseUpdated = new Course(courseid,quarter,year,maxNumberOfParticipants,course.getStatus());
+    entityManager.merge(CourseUpdated);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    logger.info("Course " + courseid + " was updated");
+    return CourseUpdated;
+  }
+  private Long id;
+  private QuarterEnum quarter;
+  private Integer year;
+  private Integer maxNumberOfParticipants;
+  private StatusEnum status;
+  private List<Session> sessions;
 
   @Override
   public void finalize() throws Throwable {
