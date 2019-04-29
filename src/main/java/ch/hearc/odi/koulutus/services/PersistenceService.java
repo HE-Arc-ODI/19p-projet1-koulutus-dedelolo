@@ -23,6 +23,7 @@ import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
